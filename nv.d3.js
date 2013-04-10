@@ -7781,6 +7781,7 @@ nv.models.pie = function() {
     , getX = function(d) { return d.x }
     , getY = function(d) { return d.y }
     , getDescription = function(d) { return d.description }
+    , getColor = function(d) {return d.color}
     , id = Math.floor(Math.random() * 10000) //Create semi-unique ID in case user doesn't select one
     , color = nv.utils.defaultColor()
     , valueFormat = d3.format(',.2f')
@@ -7896,8 +7897,8 @@ nv.models.pie = function() {
               });
 
         slices
-            .attr('fill', function(d,i) { return color(d, i); })
-            .attr('stroke', function(d,i) { return color(d, i); });
+            .attr('fill', function(d,i) { return getColor(d.data) || color(d, i); })
+            .attr('stroke', function(d,i) { return getColor(d.data) || color(d, i); });
 
         var paths = ae.append('path')
             .each(function(d) { this._current = d; });
